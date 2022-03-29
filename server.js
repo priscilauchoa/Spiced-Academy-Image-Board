@@ -1,11 +1,47 @@
-const express = require('express');
+const express = require("express");
 const app = express();
+const db = require("./db");
 
-app.use(express.static('./public'));
+app.use(express.static("./public"));
 
 app.use(express.json());
 
-app.get('*', (req, res) => {
+let cities = [
+    {
+        id: 1,
+        name: "Berlin",
+        country: "DE",
+        flag: "🇩🇪",
+    },
+    {
+        id: 2,
+        name: "São Paulo",
+        country: "BR",
+        flag: "🇧🇷",
+    },
+    {
+        id: 1,
+        name: "Guayaquil",
+        country: "Ecudor ",
+        flag: "🇪🇨",
+    },
+];
+
+app.get("/cities", (req, res) => {
+    console.log(cities);
+    res.json(cities);
+});
+
+app.get("/images", (req, res) => {
+    console.log("Images");
+    db.getImages().then((images) => {
+        console.log(images);
+        res.json(images);
+        console.log(images);
+    });
+});
+
+app.get("*", (req, res) => {
     res.sendFile(`${__dirname}/index.html`);
 });
 
