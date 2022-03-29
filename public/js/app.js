@@ -5,15 +5,15 @@ Vue.createApp({
         return {
             name: "truffle",
             seen: true,
-            cities: "{}",
+            images: "{}",
         };
     },
     mounted() {
-        fetch("/cities")
+        fetch("/images")
             .then((resp) => resp.json())
             .then((data) => {
                 console.log("data --->", data);
-                this.cities = data;
+                this.images = data;
             });
 
         console.log(this.cities);

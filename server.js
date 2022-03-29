@@ -34,10 +34,10 @@ app.get("/cities", (req, res) => {
 
 app.get("/images", (req, res) => {
     console.log("Images");
-    db.getImages().then((images) => {
-        console.log(images);
-        res.json(images);
-        console.log(images);
+    db.getImages().then(({ rows }) => {
+        // console.log(images.rows[0].id);
+        res.json(rows);
+        // console.log(images);
     });
 });
 
