@@ -3,9 +3,11 @@ import * as Vue from "./vue.js";
 Vue.createApp({
     data() {
         return {
-            name: "truffle",
-            seen: true,
-            images: "{}",
+            images: [],
+            username: "",
+            title: "",
+            description: "",
+            file: null,
         };
     },
     mounted() {
@@ -20,8 +22,28 @@ Vue.createApp({
     },
 
     methods: {
-        sayHello: function (arg, arg2) {
-            console.log(`Hello ${arg} ${arg2}`);
+        clickHandler: function () {
+            let fd = new FormData();
+            fd.append("username", this.username);
+            fd.append("title", this.title);
+            fd.append("description", this.description);
+            fd.append("file", this.file);
+
+            fetch("/upload", {
+                method: "POST",
+                body: fd,
+            })
+                .then((res) => res.json())
+                .then((response) => {
+                    console.log("response", response);
+                })
+                .catch((err) => {
+                    console.log("err", err);
+                });
+        },
+        fileSelectHandler: function (e) {
+            this.file = e.target.files[0];
+            // console.log("file selected", this.file);
         },
     },
 }).mount("#main");
