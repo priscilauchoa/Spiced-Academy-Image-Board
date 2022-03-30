@@ -13,9 +13,9 @@ Vue.createApp({
     mounted() {
         fetch("/images")
             .then((resp) => resp.json())
-            .then((data) => {
-                console.log("data --->", data);
-                this.images = data;
+            .then(({ rows }) => {
+                // console.log("data --->", data);
+                this.images = rows;
             });
 
         console.log(this.cities);
@@ -35,6 +35,7 @@ Vue.createApp({
             })
                 .then((res) => res.json())
                 .then((response) => {
+                    this.images.push(response[0]);
                     console.log("response", response);
                 })
                 .catch((err) => {
