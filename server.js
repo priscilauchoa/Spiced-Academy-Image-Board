@@ -15,6 +15,13 @@ app.get("/images", (req, res) => {
     });
 });
 
+app.get("/modal/:id", (req, res) => {
+    console.log("req.params.id --->", req.params.id);
+    db.getImageById(req.params.id).then(({ rows }) => {
+        res.json({ rows });
+    });
+});
+
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     if (req.file) {
         const { title, description, username } = req.body;

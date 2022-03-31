@@ -51,25 +51,31 @@ button {
     background-color: rgb(224, 161, 132);
     padding: 5px;
 }
-/* 
-.inputfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+
+.container {
+    /* background-color: #474e5dbd; */
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
 
-.inputfile + label {
-    font-size: 1.25em;
-    font-weight: 700;
-    color: white;
-    background-color: black;
-    display: inline-block;
+.modal {
+    position: fixed;
+    /* display: none; */
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #474e5d49;
+    padding-top: 50px;
 }
 
-.inputfile:focus + label,
-.inputfile + label:hover {
-    background-color: red;
-} */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    border: 1px solid #888;
+    width: 50%;
+    height: 60%;
+}

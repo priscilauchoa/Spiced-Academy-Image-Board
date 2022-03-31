@@ -8,6 +8,9 @@ const db = spicedPg(
 exports.getImages = () => {
     return db.query(`SELECT * FROM images ORDER BY id DESC`);
 };
+exports.getImageById = (id) => {
+    return db.query(`SELECT * FROM images WHERE id = $1`, [id]);
+};
 
 exports.saveImage = (title, description, username, url) => {
     return db.query(

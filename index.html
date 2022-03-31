@@ -10,6 +10,14 @@
     <h3>Latest Images</h1>
     
     <div id="main">
+
+       <div class="modal" v-if="openedModal"  >
+            <modal class="modal-content" @close="hideComponent" :image-id=id></modal>
+        </div>
+
+        <!-- <first-component v-if="selectedFood" passing-some-prop="😉" :food-id="selectedFood"></first-component> -->
+
+        <h3 v-for="food in foods" @click="selectFood(food.id)"> {{food.emoji}}</h3>
         <form>
             <input v-model="username" type="text" name="username" placeholder="username">
             <input v-model="title" type="text" name="title" placeholder="title">
@@ -20,11 +28,12 @@
         </form>
         
         <section  class="card">
-            <div class="card-content" v-for="image in images" v-bind:key="image.id" @click="sayHello(image.name, image.flag)">
-                <img class="card-img" :src=image.url :alt=image.description>
+            <div class="card-content" v-for="image in images" v-bind:key="image.id">
+                <img class="card-img" :src=image.url :alt=image.description @click="openModal(image.id)">
               <p>  {{image.title}} </p>
             </div>
         </section>
+        
     </div>
 
     <script src="/js/app.js" type="module" crossorigin="use-credentials"></script>

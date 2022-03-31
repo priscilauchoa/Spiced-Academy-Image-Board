@@ -1,4 +1,6 @@
 import * as Vue from "./vue.js";
+import firstComponent from "./firstComponent.js";
+import modal from "./modal.js";
 
 Vue.createApp({
     data() {
@@ -8,8 +10,15 @@ Vue.createApp({
             title: "",
             description: "",
             file: null,
+            openedModal: null,
+            id: 0,
         };
     },
+    components: {
+        firstComponent: firstComponent,
+        modal: modal,
+    },
+
     mounted() {
         fetch("/images")
             .then((resp) => resp.json())
@@ -42,9 +51,22 @@ Vue.createApp({
                     console.log("err", err);
                 });
         },
+
+        openModal(imageId) {
+            // this.$emit("open");
+            this.openedModal = true;
+            console.log("id --->", imageId);
+            this.id = imageId;
+        },
+
         fileSelectHandler: function (e) {
             this.file = e.target.files[0];
             // console.log("file selected", this.file);
+        },
+
+        hideComponent() {
+            console.log("the first component wants me to  do sth");
+            this.openedModal = null;
         },
     },
 }).mount("#main");
