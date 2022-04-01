@@ -9,6 +9,7 @@ const modal = {
         };
     },
 
+    props: ["imageId"],
 
     mounted() {
         // console.log("image id", this.imageId);

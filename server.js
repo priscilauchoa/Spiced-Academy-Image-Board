@@ -16,9 +16,7 @@ app.get("/images", (req, res) => {
 });
 
 app.get("/images/more", (req, res) => {
-    
-    db.getMoreImages().then(({ rows }) => {
-        // console.log("rows-->>", rows[0]);
+    db.getMoreImages(1).then(({ rows }) => {
         res.json({ rows });
     });
 });

@@ -19,6 +19,8 @@ Vue.createApp({
         modal: modal,
     },
 
+    props: ["lowestId"],
+
     mounted() {
         fetch("/images")
             .then((resp) => resp.json())
@@ -51,9 +53,21 @@ Vue.createApp({
                     console.log("err", err);
                 });
         },
+        getMoreImages: function () {
+            console.log("lowestId-->", this.lowestId);
+            fetch(`/image/${this.lowestId}`)
+                .then((resp) => resp.json())
+                .then(({ rows }) => {
+                    this.url = rows[0].url;
+                    this.title = rows[0].title;
+                    this.description = rows[0].description;
+                    this.username = rows[0].username;
+                    this.created_at = rows[0].created_at;
+                    console.log("this title--->", rows);
+                });
+        },
 
         openModal(imageId) {
-            // this.$emit("open");
             this.openedModal = true;
             console.log("id --->", imageId);
             this.id = imageId;

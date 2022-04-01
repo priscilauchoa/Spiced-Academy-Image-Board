@@ -29,7 +29,7 @@
         
         <section  class="card">
             <div class="card-content" v-for="image in images" v-bind:key="image.id">
-                <img :image-currently-id=image.id class="card-img" :src=image.url :alt=image.description @click="openModal(image.id)">
+                <img :lowest-id=image.id class="card-img" :src=image.url :alt=image.description @click="openModal(image.id)">
               <p>  {{image.title}} </p>
               <p> ID {{image.id}} </p>
             </div>
