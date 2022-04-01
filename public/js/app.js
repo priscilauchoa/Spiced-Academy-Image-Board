@@ -44,7 +44,7 @@ Vue.createApp({
             })
                 .then((res) => res.json())
                 .then((response) => {
-                    this.images.push(response[0]);
+                    this.images.unshift(response[0]);
                     console.log("response", response);
                 })
                 .catch((err) => {

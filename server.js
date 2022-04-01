@@ -15,6 +15,14 @@ app.get("/images", (req, res) => {
     });
 });
 
+app.get("/images/more", (req, res) => {
+    
+    db.getMoreImages().then(({ rows }) => {
+        // console.log("rows-->>", rows[0]);
+        res.json({ rows });
+    });
+});
+
 app.get("/modal/:id", (req, res) => {
     console.log("req.params.id --->", req.params.id);
     db.getImageById(req.params.id).then(({ rows }) => {

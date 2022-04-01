@@ -6,8 +6,23 @@ const db = spicedPg(
 );
 
 exports.getImages = () => {
-    return db.query(`SELECT * FROM images ORDER BY id DESC`);
+    return db.query(`SELECT * FROM images ORDER BY id DESC LIMIT 3`);
 };
+
+exports.getMoreImages = (lastId) => {
+    return (
+        db.query(`SELECT url, title, id, (
+                SELECT id FROM images
+                ORDER BY id ASC
+                LIMIT 1
+            ) AS "lowestId" FROM images
+            WHERE id < $1
+            ORDER BY id DESC
+            LIMIT 3;`),
+        [lastId]
+    );
+};
+
 exports.getImageById = (id) => {
     return db.query(`SELECT * FROM images WHERE id = $1`, [id]);
 };

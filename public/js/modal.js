@@ -5,14 +5,13 @@ const modal = {
             username: "",
             title: "Image",
             description: "",
-            file: null,
+            created_at: "",
         };
     },
 
-    props: ["imageId"],
 
     mounted() {
-        console.log("image id", this.imageId);
+        // console.log("image id", this.imageId);
         fetch(`/modal/${this.imageId}`)
             .then((resp) => resp.json())
             .then(({ rows }) => {
@@ -20,7 +19,8 @@ const modal = {
                 this.title = rows[0].title;
                 this.description = rows[0].description;
                 this.username = rows[0].username;
-                console.log("this title--->", this.title);
+                this.created_at = rows[0].created_at;
+                console.log("this title--->", rows);
             });
     },
 
@@ -30,11 +30,13 @@ const modal = {
         },
     },
     template: `<div>
-                    <h2 @click="close"> X </h2>
-                    <h1> {{title}} </h1>
-                    <img class="card-img" :src=url :alt=description>
+                    <h2 class="close-button" @click="close"> X </h2>
+                    <img class="modal-img" :src=url :alt=description>
+                    <h1> Title: {{title}} </h1>
                     <p>{{username}}</p>
                     <p>{{description}}</p>
+                    <p> Created at: {{created_at}} </p>
+
                 </div>
                 `,
 };

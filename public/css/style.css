@@ -76,6 +76,25 @@ button {
     background-color: #fefefe;
     margin: 5% auto;
     border: 1px solid #888;
-    width: 50%;
-    height: 60%;
+    width: 501px;
+    height: 695px;
+    padding: 0 20px 10px;
+}
+
+.close-button {
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(209, 73, 73);
+    text-align: end;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 15px;
+}
+
+.modal-img {
+    width: 500px;
+    height: 400px;
+}
+.more {
+    background-color: transparent;
+    margin: 5% 50%;
 }
