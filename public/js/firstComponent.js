@@ -8,8 +8,8 @@ const firstComponent = {
     },
     props: ["passingSomeProp", "foodId"],
     mounted() {
-        console.log("first componnet just mounted");
-        console.log("Which food selected? Food Id: ", this.foodId);
+        // console.log("first componnet just mounted");
+        // console.log("Which food selected? Food Id: ", this.foodId);
 
         setTimeout(() => {
             this.greetee = "Truffle";
@@ -17,7 +17,7 @@ const firstComponent = {
     },
     methods: {
         countUp() {
-            console.log("the user want to increase count");
+            // console.log("the user want to increase count");
             this.count++;
         },
         parentDoSth() {

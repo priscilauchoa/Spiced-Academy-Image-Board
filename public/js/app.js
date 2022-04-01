@@ -19,17 +19,12 @@ Vue.createApp({
         modal: modal,
     },
 
-    props: ["lowestId"],
-
     mounted() {
         fetch("/images")
             .then((resp) => resp.json())
             .then(({ rows }) => {
-                // console.log("data --->", data);
                 this.images = rows;
             });
-
-        console.log(this.cities);
     },
 
     methods: {
@@ -54,16 +49,23 @@ Vue.createApp({
                 });
         },
         getMoreImages: function () {
-            console.log("lowestId-->", this.lowestId);
-            fetch(`/image/${this.lowestId}`)
+            let lowestId = 0;
+            console.log(this.images);
+
+            for (let i = 0; i < this.images.length; i++) {
+                this.images[i] < lowestId;
+                lowestId = this.images[i].id;
+            }
+            console.log("more was clicked", lowestId);
+            fetch(`/images/${lowestId}`)
                 .then((resp) => resp.json())
                 .then(({ rows }) => {
-                    this.url = rows[0].url;
-                    this.title = rows[0].title;
-                    this.description = rows[0].description;
-                    this.username = rows[0].username;
-                    this.created_at = rows[0].created_at;
-                    console.log("this title--->", rows);
+                    // console.log("rows-->", { rows });
+                    let image = 0;
+                    for (image of rows) {
+                        console.log("image", image);
+                        this.images.push(image);
+                    }
                 });
         },
 
@@ -79,7 +81,6 @@ Vue.createApp({
         },
 
         hideComponent() {
-            console.log("the first component wants me to  do sth");
             this.openedModal = null;
         },
     },

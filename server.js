@@ -15,15 +15,16 @@ app.get("/images", (req, res) => {
     });
 });
 
-app.get("/images/more", (req, res) => {
-    db.getMoreImages(1).then(({ rows }) => {
+app.get("/modal/:id", (req, res) => {
+    console.log("req.params.id --->", req.params.id);
+    db.getImageById(req.params.id).then(({ rows }) => {
         res.json({ rows });
     });
 });
 
-app.get("/modal/:id", (req, res) => {
-    console.log("req.params.id --->", req.params.id);
-    db.getImageById(req.params.id).then(({ rows }) => {
+app.get("/images/:lowest", (req, res) => {
+    db.getMoreImages(req.params.lowest).then(({ rows }) => {
+        console.log("ROWS--->", rows);
         res.json({ rows });
     });
 });
