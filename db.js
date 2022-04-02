@@ -36,5 +36,19 @@ exports.saveImage = (title, description, username, url) => {
     );
 };
 
+exports.insertComments = (imageId, username, comment) => {
+    return db.query(
+        `INSERT INTO comments (image_id, username, comment) VALUES ($1, $2, $3)
+            RETURNING id, username, comment`,
+        [imageId, username, comment]
+    );
+};
+
+exports.getComments = (imageId) => {
+    return db.query(
+        `SELECT * FROM comments WHERE image_id = $1 ORDER BY id DESC LIMIT 3`,
+        [imageId]
+    );
+};
 // INSERT INTO signatures (user_id, signature) VALUES ($1, $2)
 //         RETURNING id

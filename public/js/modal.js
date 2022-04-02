@@ -1,3 +1,5 @@
+import comment from "./comment.js";
+
 const modal = {
     data() {
         return {
@@ -8,11 +10,14 @@ const modal = {
             created_at: "",
         };
     },
+    components: {
+        comment: comment,
+    },
 
     props: ["imageId"],
 
     mounted() {
-        // console.log("image id", this.imageId);
+        console.log("image id ", this.imageId);
         fetch(`/modal/${this.imageId}`)
             .then((resp) => resp.json())
             .then(({ rows }) => {
@@ -23,6 +28,7 @@ const modal = {
                 this.created_at = rows[0].created_at;
                 // console.log("this title--->", rows);
             });
+        console.log(this.imageId);
     },
 
     methods: {
@@ -37,7 +43,7 @@ const modal = {
                     <p>{{username}}</p>
                     <p>{{description}}</p>
                     <p> Created at: {{created_at}} </p>
-
+                    <div><comment :image-id=imageId></comment></div>
                 </div>
                 `,
 };

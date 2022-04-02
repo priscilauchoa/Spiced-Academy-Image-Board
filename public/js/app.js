@@ -11,6 +11,7 @@ Vue.createApp({
             description: "",
             file: null,
             openedModal: null,
+            moreButton: true,
             id: 0,
         };
     },
@@ -56,7 +57,7 @@ Vue.createApp({
                 this.images[i] < lowestId;
                 lowestId = this.images[i].id;
             }
-            console.log("more was clicked", lowestId);
+
             fetch(`/images/${lowestId}`)
                 .then((resp) => resp.json())
                 .then(({ rows }) => {
@@ -65,6 +66,9 @@ Vue.createApp({
                     for (image of rows) {
                         console.log("image", image);
                         this.images.push(image);
+                    }
+                    if (rows.length < 0) {
+                        this.moreButton = false;
                     }
                 });
         },

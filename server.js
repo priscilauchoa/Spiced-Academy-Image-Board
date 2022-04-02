@@ -29,6 +29,27 @@ app.get("/images/:lowest", (req, res) => {
     });
 });
 
+app.get("/comments/:imageid", (req, res) => {
+    db.getComments(req.params.imageid).then(({ rows }) => {
+        res.json({ rows });
+    });
+});
+
+app.post("/comments/:imageId", (req, res) => {
+    console.log(
+        "ROWS--->",
+        req.params.imageId,
+        req.body.username,
+        req.body.comment
+    );
+    db.insertComments(req.params.imageId, req.body.username, req.body.comment)
+        .then(({ rows }) => {
+            console.log("ROWS--->", rows);
+            res.json(rows);
+        })
+        .catch(() => res.sendStatus(500));
+});
+
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     if (req.file) {
         const { title, description, username } = req.body;
@@ -37,6 +58,7 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 
         // console.log(title, description, username, url);
         db.saveImage(title, description, username, url).then(({ rows }) => {
+            // console.log("ROWS2--->", rows);
             res.json(rows);
         });
     } else {
