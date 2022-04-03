@@ -14,7 +14,8 @@ CREATE TABLE comments(
     id SERIAL PRIMARY KEY,
     username VARCHAR NOT NULL,
     comment TEXT,
-    image_id INT NOT NULL REFERENCES images(id)
+    image_id INT NOT NULL REFERENCES images(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- INSERT INTO images (url, username, title, description) VALUES (

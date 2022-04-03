@@ -26,7 +26,6 @@ const modal = {
                 this.description = rows[0].description;
                 this.username = rows[0].username;
                 this.created_at = rows[0].created_at;
-                // console.log("this title--->", rows);
             });
         console.log(this.imageId);
     },
@@ -37,12 +36,12 @@ const modal = {
         },
     },
     template: `<div>
-                    <h2 class="close-button" @click="close"> X </h2>
+                    <p class="close-button" @click="close"> X </p>
                     <img class="modal-img" :src=url :alt=description>
-                    <h1> Title: {{title}} </h1>
-                    <p>{{username}}</p>
+                    <h2> Title: {{title}} </h2>
+                    <p>By : {{username}}</p>
                     <p>{{description}}</p>
-                    <p> Created at: {{created_at}} </p>
+                    <p> {{created_at}} </p>
                     <div><comment :image-id=imageId></comment></div>
                 </div>
                 `,

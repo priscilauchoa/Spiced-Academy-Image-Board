@@ -67,7 +67,7 @@ Vue.createApp({
                         console.log("image", image);
                         this.images.push(image);
                     }
-                    if (rows.length < 0) {
+                    if (rows.length < 1) {
                         this.moreButton = false;
                     }
                 });

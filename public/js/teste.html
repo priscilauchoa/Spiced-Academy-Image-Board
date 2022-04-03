@@ -1,0 +1,18 @@
+
+<div>
+    <label>Let your comment here<label>
+    <input v-model="comment" type="text" name="comment"></input>
+
+    <input v-model="username" type="text" name="username"></input>
+    <button @click.prevent="insertComment" class="comment-button">Submit</button>
+</div>
+<div>
+    <div id="comments">
+        <div id="comments-content">    
+            <label>{{comment.username}}</label>
+            <div v-for="comment in comments">
+                <p>{{comment.username}} </br> {{comment.comment}}</p>
+            </div>
+        </div>
+    </div>
+</div>
