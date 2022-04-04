@@ -67,13 +67,12 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     }
 });
 
-// app.get("/images/check", (req, res) => {
-//     console.log("it is working");
-//     // db.getAllImages().then(({ rows }) => {
-//     //     console.log("all images", rows);
-//     //     res.json({ rows });
-//     // });
-// });
+app.get("/image/:before", (req, res) => {
+    db.getIdBefore(req.params.imageId).then(({ rows }) => {
+        console.log("image before", rows);
+        res.json({ rows });
+    });
+});
 
 app.get("*", (req, res) => {
     res.sendFile(`${__dirname}/index.html`);

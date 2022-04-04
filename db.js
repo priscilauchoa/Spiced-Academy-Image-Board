@@ -13,6 +13,10 @@ exports.getAllImages = () => {
     return db.query(`SELECT * FROM images`);
 };
 
+exports.getIdBefore = (id) => {
+    return db.query(`SELECT * FROM images WHERE id = $1 - 1`, [id]);
+};
+
 exports.getMoreImages = (lastId) => {
     return db.query(
         `SELECT url, title, id, (

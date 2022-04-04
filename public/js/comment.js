@@ -9,16 +9,24 @@ const comment = {
 
     props: ["imageId"],
 
+    watch: {
+        imageId(newValue, oldValue) {
+            console.log("### watcher", newValue, oldValue);
+            this.getComments();
+        },
+    },
     mounted() {
-        // console.log("image id in comment", this.imageId);
+        console.log("image id in comment", this.imageId);
         this.getComments();
     },
 
     methods: {
         getComments() {
+            console.log("### comments imageId", this.imageId);
             fetch(`/comments/${this.imageId}`)
                 .then((resp) => resp.json())
-                .then(({ rows }) => {
+                .then((rows) => {
+                    console.log("### comments response", rows);
                     this.comments = rows;
                 });
         },
