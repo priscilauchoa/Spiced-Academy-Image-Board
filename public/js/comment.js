@@ -10,7 +10,7 @@ const comment = {
     props: ["imageId"],
 
     mounted() {
-        console.log("image id in comment", this.imageId);
+        // console.log("image id in comment", this.imageId);
         this.getComments();
     },
 

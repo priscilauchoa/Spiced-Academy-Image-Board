@@ -1,5 +1,4 @@
 import * as Vue from "./vue.js";
-import firstComponent from "./firstComponent.js";
 import modal from "./modal.js";
 
 Vue.createApp({
@@ -16,11 +15,18 @@ Vue.createApp({
         };
     },
     components: {
-        firstComponent: firstComponent,
         modal: modal,
     },
 
     mounted() {
+        this.openModal(location.pathname.slice(1));
+
+        window.addEventListener("popstate", () => {
+            location.pathname.slice(1);
+            console.log("the user just used <- or -> button");
+            console.log("new url ");
+        });
+
         fetch("/images")
             .then((resp) => resp.json())
             .then(({ rows }) => {
@@ -67,7 +73,7 @@ Vue.createApp({
                         console.log("image", image);
                         this.images.push(image);
                     }
-                    if (rows.length < 1) {
+                    if (rows.length < 3) {
                         this.moreButton = false;
                     }
                 });
@@ -77,6 +83,7 @@ Vue.createApp({
             this.openedModal = true;
             console.log("id --->", imageId);
             this.id = imageId;
+            history.pushState({}, "", "imageId");
         },
 
         fileSelectHandler: function (e) {
@@ -86,6 +93,8 @@ Vue.createApp({
 
         hideComponent() {
             this.openedModal = null;
+            history.pushState({}, "", "/");
+            console.log("url updated to-->:", location.pathname.slice(1));
         },
     },
 }).mount("#main");

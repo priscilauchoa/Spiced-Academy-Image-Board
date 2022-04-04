@@ -15,9 +15,7 @@
             <modal class="modal-content" @close="hideComponent" :image-id=id></modal>
         </div>
 
-        <!-- <first-component v-if="selectedFood" passing-some-prop="😉" :food-id="selectedFood"></first-component> -->
-
-        <h3 v-for="food in foods" @click="selectFood(food.id)"> {{food.emoji}}</h3>
+        
         <form>
             <input v-model="username" type="text" name="username" placeholder="username">
             <input v-model="title" type="text" name="title" placeholder="title">

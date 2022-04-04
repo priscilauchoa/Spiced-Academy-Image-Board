@@ -26,8 +26,12 @@ const modal = {
                 this.description = rows[0].description;
                 this.username = rows[0].username;
                 this.created_at = rows[0].created_at;
+
+                if (this.imageId) {
+                    history.pushState({}, "", this.imageId);
+                }
+                console.log("url updated to:", location.pathname.slice(1));
             });
-        console.log(this.imageId);
     },
 
     methods: {
