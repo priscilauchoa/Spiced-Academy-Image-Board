@@ -20,12 +20,13 @@ const modal = {
         console.log("image id ", this.imageId);
         fetch(`/modal/${this.imageId}`)
             .then((resp) => resp.json())
-            .then(({ rows }) => {
-                this.url = rows[0].url;
-                this.title = rows[0].title;
-                this.description = rows[0].description;
-                this.username = rows[0].username;
-                this.created_at = rows[0].created_at;
+            .then((response) => {
+                this.url = response.url;
+                this.title = response.title;
+                this.description = response.description;
+                this.username = response.username;
+                this.created_at = response.created_at;
+                console.log("dawsbdsh", response.rows[0]);
 
                 if (this.imageId) {
                     history.pushState({}, "", this.imageId);

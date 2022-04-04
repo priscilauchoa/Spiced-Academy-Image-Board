@@ -17,3 +17,17 @@ Array.prototype.forEach.call(inputs, function (input) {
         else label.innerHTML = labelVal;
     });
 });
+
+//    this.images = rows;
+//    if (
+//        location.pathname.slice(1) !== "" &&
+//        location.pathname.slice(1) == Number
+//    ) {
+//        this.openModal(location.pathname.slice(1));
+//    } else {
+//        window.addEventListener("popstate", () => {
+//            location.pathname.slice(1);
+//            console.log("the user just used <- or -> button");
+//            console.log("new url ");
+//        });
+//    }

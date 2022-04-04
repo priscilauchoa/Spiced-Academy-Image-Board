@@ -9,8 +9,11 @@ exports.getImages = () => {
     return db.query(`SELECT * FROM images ORDER BY id DESC LIMIT 3`);
 };
 
+exports.getAllImages = () => {
+    return db.query(`SELECT * FROM images`);
+};
+
 exports.getMoreImages = (lastId) => {
-    console.log("lastID-->", lastId);
     return db.query(
         `SELECT url, title, id, (
                 SELECT id FROM images

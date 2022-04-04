@@ -19,18 +19,39 @@ Vue.createApp({
     },
 
     mounted() {
-        this.openModal(location.pathname.slice(1));
-
+        // this.isImage();
         window.addEventListener("popstate", () => {
-            location.pathname.slice(1);
-            console.log("the user just used <- or -> button");
-            console.log("new url ");
+            if (location.pathname.slice(1) == 0) {
+                this.openedModal = null;
+            } else {
+                this.openedModal = location.pathname.slice(1);
+            }
         });
+        this.openedModal = location.pathname.slice(1);
 
         fetch("/images")
             .then((resp) => resp.json())
-            .then(({ rows }) => {
-                this.images = rows;
+            .then((obj) => {
+                this.images = obj.initialImgs;
+
+                console.log(obj.initialImgs);
+
+                // for (let i = 0; i < obj.allImgs.rows.length; i++) {
+                //     if (obj.allImgs.rows[i].id == location.pathname.slice(1)) {
+                //         // console.log("id images", obj.allImgs.rows[i].id);
+                //         // console.log("location id", location.pathname.slice(1));
+                //         this.openModal(obj.allImgs.rows[i].id);
+                //     } else {
+                //         history.replaceState({}, "", "/");
+                //     }
+                // }
+
+                // fetch("/images/check")
+                //     .then((resp) => resp.json())
+                //     .then(({ rows }) => {
+                //         console.log("ID-->", rows);
+
+                //     });
             });
     },
 
@@ -55,6 +76,22 @@ Vue.createApp({
                     console.log("err", err);
                 });
         },
+
+        // isImage() {
+        //     fetch("/images/isimage")
+        //         .then((resp) => resp.json())
+        //         .then(({ rows }) => {
+        //             console.log("ID-->", rows);
+        //             for (let i = 0; i < rows.length; i++) {
+        //                 if (rows[i].id == location.pathname.slice(1)) {
+        //                     this.openModal(location.pathname.slice(1));
+        //                 } else {
+        //                     history.replaceState({}, "", "/");
+        //                 }
+        //             }
+        //         });
+        // },
+
         getMoreImages: function () {
             let lowestId = 0;
             console.log(this.images);
@@ -81,9 +118,8 @@ Vue.createApp({
 
         openModal(imageId) {
             this.openedModal = true;
-            console.log("id --->", imageId);
             this.id = imageId;
-            history.pushState({}, "", "imageId");
+            // history.pushState({}, "", imageId);
         },
 
         fileSelectHandler: function (e) {
@@ -93,8 +129,8 @@ Vue.createApp({
 
         hideComponent() {
             this.openedModal = null;
-            history.pushState({}, "", "/");
-            console.log("url updated to-->:", location.pathname.slice(1));
+            //reset url
+            history.replaceState({}, "", "/");
         },
     },
 }).mount("#main");

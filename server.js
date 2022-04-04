@@ -10,7 +10,15 @@ app.get("/images", (req, res) => {
     // console.log("Images");
     db.getImages().then(({ rows }) => {
         // console.log(images.rows[0].id);
-        res.json({ rows });
+        db.getAllImages().then((result) => {
+            console.log("all images", result);
+            // res.json({ rows });
+
+            console.log("rows insise  images", rows);
+
+            res.json({ initialImgs: rows, allImgs: result });
+        });
+        // res.json({ rows });
         // console.log(images);
     });
 });
@@ -31,7 +39,7 @@ app.get("/images/:lowest", (req, res) => {
 
 app.get("/comments/:imageid", (req, res) => {
     db.getComments(req.params.imageid).then(({ rows }) => {
-        res.json({ rows });
+        res.json(rows);
     });
 });
 
@@ -65,6 +73,14 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         return res.sendStatus(500);
     }
 });
+
+// app.get("/images/check", (req, res) => {
+//     console.log("it is working");
+//     // db.getAllImages().then(({ rows }) => {
+//     //     console.log("all images", rows);
+//     //     res.json({ rows });
+//     // });
+// });
 
 app.get("*", (req, res) => {
     res.sendFile(`${__dirname}/index.html`);
