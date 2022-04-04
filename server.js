@@ -10,15 +10,7 @@ app.get("/images", (req, res) => {
     // console.log("Images");
     db.getImages().then(({ rows }) => {
         // console.log(images.rows[0].id);
-        db.getAllImages().then((result) => {
-            console.log("all images", result);
-            // res.json({ rows });
-
-            console.log("rows insise  images", rows);
-
-            res.json({ initialImgs: rows, allImgs: result });
-        });
-        // res.json({ rows });
+        res.json({ rows });
         // console.log(images);
     });
 });
@@ -26,7 +18,8 @@ app.get("/images", (req, res) => {
 app.get("/modal/:id", (req, res) => {
     console.log("req.params.id --->", req.params.id);
     db.getImageById(req.params.id).then(({ rows }) => {
-        res.json({ rows });
+        if (rows.length) res.json(rows[0]);
+        else res.status(404).send();
     });
 });
 

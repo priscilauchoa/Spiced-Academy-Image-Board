@@ -11,7 +11,7 @@ Vue.createApp({
             file: null,
             openedModal: null,
             moreButton: true,
-            id: 0,
+            imageId: 0,
         };
     },
     components: {
@@ -19,22 +19,26 @@ Vue.createApp({
     },
 
     mounted() {
-        // this.isImage();
         window.addEventListener("popstate", () => {
-            if (location.pathname.slice(1) == 0) {
-                this.openedModal = null;
+            let imageId = location.pathname.slice(1);
+            if (imageId && /\d/.test(imageId)) {
+                this.openModal(imageId);
             } else {
-                this.openedModal = location.pathname.slice(1);
+                this.openedModal = false;
             }
         });
-        this.openedModal = location.pathname.slice(1);
+
+        let imageId = location.pathname.slice(1);
+        if (imageId && /\d/.test(imageId)) {
+            this.openModal(imageId);
+        }
 
         fetch("/images")
             .then((resp) => resp.json())
-            .then((obj) => {
-                this.images = obj.initialImgs;
+            .then(({ rows }) => {
+                this.images = rows;
 
-                console.log(obj.initialImgs);
+                console.log(this.images);
 
                 // for (let i = 0; i < obj.allImgs.rows.length; i++) {
                 //     if (obj.allImgs.rows[i].id == location.pathname.slice(1)) {
@@ -118,8 +122,8 @@ Vue.createApp({
 
         openModal(imageId) {
             this.openedModal = true;
-            this.id = imageId;
-            // history.pushState({}, "", imageId);
+            this.imageId = imageId;
+            history.pushState({}, "", imageId);
         },
 
         fileSelectHandler: function (e) {

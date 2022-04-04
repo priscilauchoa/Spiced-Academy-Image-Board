@@ -21,6 +21,7 @@ const modal = {
         fetch(`/modal/${this.imageId}`)
             .then((resp) => resp.json())
             .then((response) => {
+                console.log("### response", response);
                 this.url = response.url;
                 this.title = response.title;
                 this.description = response.description;
