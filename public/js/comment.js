@@ -54,7 +54,7 @@ const comment = {
                         <h3 class="header-comment">Add a comment</h3>
                         <label>Name</label>
                         <input v-model="username" type="text" name="username"></input>
-                        <label>Comment</label>
+                        <label style="margin-top:3px">Comment</label>
                         <input v-model="comment" type="text" name="comment"></input>
 
                         <button @click.prevent="insertComment" class="comment-button">Submit</button>
@@ -64,7 +64,7 @@ const comment = {
                             <div id="comments-content">    
                                 <label>{{comment.username}}</label>
                                 <div v-for="comment in comments">
-                                  <h4>  {{comment.username}}</h4> </br><p id="p-comment"> {{comment.comment}}</p>
+                                  <h4>  {{comment.username}}</h4> </br><p style="font-size: 12px;"> {{comment.comment}}</p>
                                 </div>
                             </div>
                         </div>

@@ -3,22 +3,22 @@
 <head>
     <meta charset="utf-8">
     <title>My Image Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Orbitron:wght@500&family=Roboto:wght@100&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>I ❤️ PIXELS</h2>
-    <h3>Latest Images</h1>
+    <h1>I <img class="love" src="https://64.media.tumblr.com/149e10188089aa3b4c58411149a35c40/1074888a419cc415-72/s500x750/842454e745946c9a1c4bb52c85b908ed356b7f3a.gifv" alt="" srcset=""> CyberGran</h2>
     
     <div id="main">
 
        <div class="modal" v-if="openedModal" @click.self="hideComponent">
             <modal class="modal-content" @close="hideComponent" :image-id=imageId></modal>
-             
-
         </div>
 
         
-        <form>
+        <form class="input-images-style">
             <input v-model="username" type="text" name="username" placeholder="username">
             <input v-model="title" type="text" name="title" placeholder="title">
             <input v-model="description" type="text" name="description"placeholder="description">
@@ -26,7 +26,7 @@
 
 
 
-            <label for="file"><img class="icon" src="/css/cloud_upload.png">Choose a file</label>
+            <label for="file"><img class="icon" src="/css/cloud_upload.png"></label>
             <input type= "file" name= "file" id= "file"  class = "inputfile" data-multiple-caption= "{count} arquivos selecionados" multiple />
             <button @click.prevent="clickHandler">Submit</button>
         </form>
@@ -34,7 +34,8 @@
         <section  class="card">
             <div class="card-content" v-for="image in images" v-bind:key="image.id">
                 <img class="card-img" :src=image.url :alt=image.description @click="openModal(image.id)">
-              <p>  {{image.title}} {{image.id}} </p>
+              <!-- <p>  {{image.title}} {{image.id}} </p> -->
+              <div class="delete-button-div"><img class="delete-button" @click="deleteImage(image.id)" src="https://findicons.com/files/icons/1681/siena/256/trash.png" alt="" srcset=""></img></div>
             </div>
         </section>
        

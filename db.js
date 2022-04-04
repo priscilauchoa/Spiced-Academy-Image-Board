@@ -57,5 +57,13 @@ exports.getComments = (imageId) => {
         [imageId]
     );
 };
+
+exports.deleteImage = (imageId) => {
+    return db.query(`DELETE FROM images WHERE id = $1`, [imageId]);
+};
+
+exports.deleteCommentsByImageId = (imageId) => {
+    return db.query(`DELETE FROM comments WHERE image_id = $1`, [imageId]);
+};
 // INSERT INTO signatures (user_id, signature) VALUES ($1, $2)
 //         RETURNING id

@@ -84,8 +84,7 @@ const modal = {
                     <img class="modal-img" :src=url :alt=description>
                     <h2> Title: {{title}} </h2>
                     <p>By : {{username}}</p>
-                    <p>{{description}}</p>
-                    <p> {{created_at}} </p>
+                    <p>Description : {{description}}</p>
                     <div><comment :image-id=currentImageId></comment></div>
                 </div>
                 `,

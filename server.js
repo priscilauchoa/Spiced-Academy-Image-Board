@@ -15,6 +15,18 @@ app.get("/images", (req, res) => {
     });
 });
 
+app.post("/image/delete/:id", (req, res) => {
+    db.deleteCommentsByImageId(req.params.id)
+        .then(() => db.deleteImage(req.params.id))
+        .then(({ rows }) => {
+            res.send(200);
+        })
+        .catch((err) => {
+            console.log("error delete image", err);
+            res.send(500);
+        });
+});
+
 app.get("/modal/:id", (req, res) => {
     console.log("req.params.id --->", req.params.id);
     db.getImageById(req.params.id).then(({ rows }) => {

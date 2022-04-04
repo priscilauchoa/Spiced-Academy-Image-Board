@@ -33,33 +33,41 @@ Vue.createApp({
             this.openModal(imageId);
         }
 
-        fetch("/images")
-            .then((resp) => resp.json())
-            .then(({ rows }) => {
-                this.images = rows;
-
-                console.log(this.images);
-
-                // for (let i = 0; i < obj.allImgs.rows.length; i++) {
-                //     if (obj.allImgs.rows[i].id == location.pathname.slice(1)) {
-                //         // console.log("id images", obj.allImgs.rows[i].id);
-                //         // console.log("location id", location.pathname.slice(1));
-                //         this.openModal(obj.allImgs.rows[i].id);
-                //     } else {
-                //         history.replaceState({}, "", "/");
-                //     }
-                // }
-
-                // fetch("/images/check")
-                //     .then((resp) => resp.json())
-                //     .then(({ rows }) => {
-                //         console.log("ID-->", rows);
-
-                //     });
-            });
+        this.getImages();
     },
 
     methods: {
+        getImages() {
+            fetch("/images")
+                .then((resp) => resp.json())
+                .then(({ rows }) => {
+                    this.images = rows;
+
+                    const scrollingElement =
+                        document.scrollingElement || document.body;
+
+                    scrollingElement.scrollTop = scrollingElement.scrollHeight;
+                    console.log(this.images);
+
+                    // for (let i = 0; i < obj.allImgs.rows.length; i++) {
+                    //     if (obj.allImgs.rows[i].id == location.pathname.slice(1)) {
+                    //         // console.log("id images", obj.allImgs.rows[i].id);
+                    //         // console.log("location id", location.pathname.slice(1));
+                    //         this.openModal(obj.allImgs.rows[i].id);
+                    //     } else {
+                    //         history.replaceState({}, "", "/");
+                    //     }
+                    // }
+
+                    // fetch("/images/check")
+                    //     .then((resp) => resp.json())
+                    //     .then(({ rows }) => {
+                    //         console.log("ID-->", rows);
+
+                    //     });
+                });
+        },
+
         clickHandler: function () {
             let fd = new FormData();
             fd.append("username", this.username);
@@ -81,20 +89,17 @@ Vue.createApp({
                 });
         },
 
-        // isImage() {
-        //     fetch("/images/isimage")
-        //         .then((resp) => resp.json())
-        //         .then(({ rows }) => {
-        //             console.log("ID-->", rows);
-        //             for (let i = 0; i < rows.length; i++) {
-        //                 if (rows[i].id == location.pathname.slice(1)) {
-        //                     this.openModal(location.pathname.slice(1));
-        //                 } else {
-        //                     history.replaceState({}, "", "/");
-        //                 }
-        //             }
-        //         });
-        // },
+        deleteImage(imageId) {
+            fetch(`/image/delete/${imageId}`, {
+                method: "POST",
+            })
+                .then(() => {
+                    this.getImages();
+                })
+                .catch((err) => {
+                    console.log("err", err);
+                });
+        },
 
         getMoreImages: function () {
             let lowestId = 0;
